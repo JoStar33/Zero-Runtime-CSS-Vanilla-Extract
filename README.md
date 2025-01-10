@@ -1,50 +1,13 @@
-# React + TypeScript + Vite
+# Zero Runtime CSS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## CSS in JS의 문제
+### 런타임에 js파일이 실행되면서 style을 생성
+스타일의 생성이 클라이언트에서 이루어지는것이기 때문에 사용자에게 빠른 UI제공을 못하게 된다.
 
-Currently, two official plugins are available:
+### 서버 컴포넌트에 대한 미지원
+대부분의 CSS in JS 라이브러리들이 서버 컴포넌트에 대한 기능을 미지원하는것으로 알고있다. Next13버전 & React18버전에서 본격적으로 제공하고있는 서버 컴포넌트는 앞으로의 프론트엔드 패러다임에 중요한 중추역할을 할 가능성이 크다. 실제로 React19버전에서도 서버 컴포넌트에 대한 직접적인 지원을 추가적으로 늘리는 중이다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+(여기서 서버컴포넌트란? 서버에서 렌더링에 필요한 모든 작업을 일괄적으로 처리하여 사용자에게 UI를 제공하는 방식이다. 이렇게 된다면, 자바스크립트 번들링 양을 줄일 수 있으며 사용자에게 더 빠르게 UI를 제공할 수 있게된다.)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Zero Runtime CSS는?
+이와 반대로 Zero Runtime CSS는 빌드시점에 CSS를 만들기 때문에 성능측면에서 장점을 가진다. 무엇보다도 이런 특징으로 인해 서버 컴포넌트 동작이 잘된다.
